@@ -1,18 +1,16 @@
-﻿namespace Скоропечатание
+namespace Скоропечатание
 {
     public class User
     {
-        public User( string name, double minute, double second)
-        {
-            this.Name = name;
-            this.CharsPerMinute = minute;
-            this.CharsPerSecond = second;
-        }
-        
-        public string Name { get; set; }    
+        public string UserName { get; set; }    
         public double CharsPerMinute { get; set; }
         public double CharsPerSecond { get; set; }
-        
+        public User( string name, double minutes, double seconds)
+        {
+            this.UserName = name;
+            this.CharsPerMinute = minutes;
+            this.CharsPerSecond = seconds;
+        }
         public User()
         {
             
