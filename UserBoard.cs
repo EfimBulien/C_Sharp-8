@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace Скоропечатание
 {
@@ -6,28 +10,7 @@ namespace Скоропечатание
     {
         static List<User> Users = new List<User>();
         
-        public void AddUser( string name, double minute, double second)
-        {
-            try
-            {
-                Users.Add(new User(name, minute, second));
-            }
-            catch
-            {
-                if (Users.Any(item => item.Name == name))
-                {
-                    Environment.Exit(0);
-                    Console.WriteLine("Error");
-                }
-            }
-        }
-        
-        public static void AddRecords(User record)
-        {
-            Users.Add(record);
-        }
-
-        public static void Serialization()
+        public void Serialization()
         {
             string json = JsonConvert.SerializeObject(Users);
             File.WriteAllText("C:\\Users\\efimb\\OneDrive\\Desktop\\", json);
@@ -37,10 +20,26 @@ namespace Скоропечатание
         {
             foreach (User user in Users)
             {
-                Console.WriteLine("Имя: " + user.Name);
+                Console.WriteLine("Имя: " + user.UserName);
                 Console.WriteLine("Скорость в минуту: " + user.CharsPerMinute);
                 Console.WriteLine("Скорость в секунду: " + user.CharsPerSecond);
                 Console.WriteLine("                                          ");
+            }
+        }
+        
+        public void AddUser( string name, double minute, double second)
+        {
+            try
+            {
+                Users.Add(new User(name, minute, second));
+            }
+            catch
+            {
+                if (Users.Any(item => item.UserName == name))
+                {
+                    Environment.Exit(0);
+                    Console.WriteLine("Error");
+                }
             }
         }
     }
