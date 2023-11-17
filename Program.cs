@@ -1,146 +1,153 @@
-﻿namespace Скоропечатание
+using System;
+using System.Threading;
+using Скоропечатание;
+
+namespace TypingSpeed
 {
-    internal abstract class Program
+    internal class Program
     {
-        static ConsoleKeyInfo key;
-        static UserBoard userBoard = new UserBoard();
+        static int letter = 0;
+        static bool running = true;
         static User user = new User();
-        
+        static UserBoard userBoard = new UserBoard();
         static string text = 
-                "Тихий вечер. Город угрюмо молчит. Огоньки улиц освещают пустые тротуары. Ветер ласкает лица прохожих, " +
-                "несет запах дождя. Вдалеке слышится шум автомобилей, затихающий в ритме городской ночи. На углу старого здания " +
-                " стоит мужчина. В его глазах отражается усталость и загадка. Он держит в руках старую фотографию. Лица на ней знакомы," +
-                "но время оставило на них свой след. Мужчина поворачивает на переулок, где замерзшая лужайка украшена первыми инеем. " +
-                " В его сердце таится воспоминание о прошлом, которое словно давно забыто, но не отпускает. В этом мгновении, под светом " +
-                " уличных фонарей, проходит момент решения. Мужчина решает отправиться в путь. Городские огоньки теряют свой смысл, когда" +
-                " сердце наполняется тяжким чувством ожидания неизведанного. Так начинается новая глава в его жизни. Впереди непознанные " +
-                " её. Но стоило ей положить фигурку в сумку и с облегчением вздохнуть, как один из друзей со свёртками шёлка в руках похлопал её по плечу." +
-                " дороги, таинственные встречи и ответы на вопросы, которые долго прятало прошлое. Его взгляд был устремлен вдаль... ";
+            "Тихий вечер. Город угрюмо молчит. Огоньки улиц освещают пустые тротуары. Ветер ласкает лица прохожих, " +
+            "несет запах дождя. Вдалеке слышится шум автомобилей, затихающий в ритме городской ночи. На углу старого здания " +
+            " стоит мужчина. В его глазах отражается усталость и загадка. Он держит в руках старую фотографию. Лица на ней знакомы," +
+            "но время оставило на них свой след. Мужчина поворачивает на переулок, где замерзшая лужайка украшена первыми инеем. " +
+            " В его сердце таится воспоминание о прошлом, которое словно давно забыто, но не отпускает. В этом мгновении, под светом " +
+            " уличных фонарей, проходит момент решения. Мужчина решает отправиться в путь. Городские огоньки теряют свой смысл, когда" +
+            " сердце наполняется тяжким чувством ожидания неизведанного. Так начинается новая глава в его жизни. Впереди непознанные " +
+            " её. Но стоило ей положить фигурку в сумку и с облегчением вздохнуть, как один из друзей со свёртками шёлка в руках похлопал " +
+            " её по плечу. дороги, таинственные встречи и ответы на вопросы, которые долго прятало прошлое. Его взгляд был устремлен вдаль... ";
+        static ConsoleKeyInfo keyInfo;
         
         static void Main()
         {
-            bool running = true; 
             do
             {
-                Console.WriteLine("Введите свое имя: ");
-                user.Name = Convert.ToString(Console.ReadLine());
-                
-                SpeedOfTypingTest(running);
-                
-                key = Console.ReadKey();
-                
-                Console.SetCursorPosition(0,0);
-            } while (key.Key != ConsoleKey.F1);
+                Console.WriteLine("Введите ваше имя: ");
+                user.UserName = Console.ReadLine();
+                SpeedOfTypingTest();
+                keyInfo = Console.ReadKey();
+                Console.SetCursorPosition(0, 0);
+            } while (keyInfo.Key != ConsoleKey.F1);
         }
-
-        private static void Time(bool running)
+        
+        static void SpeedOfTypingTest()
         {
-            Thread t = new Thread(_ =>
+            Console.Clear();
+            Console.WriteLine("Нажмите Enter чтобы начать");
+            keyInfo = Console.ReadKey();
+            TimeOfTyping();
+            
+            while (running == true)
             {
-                int top = 0;
-                int time = 0;
-                DateTime nowDateTime = DateTime.Now;
-                DateTime timer = nowDateTime.AddMinutes(-1);
-                
-                while (nowDateTime >= timer && running)
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine(text);
+                    Console.SetCursorPosition(0, 0);
+
+                    while (letter < text.Length)
+                    {
+                        char symbol = Console.ReadKey(true).KeyChar;
+                        if (symbol == text[letter])
+                        {
+                            letter++;
+                            CyanSymbols(letter);
+                        }
+                    }
+                }
+            }
+        }
+        
+        private static void TimeOfTyping()
+        {
+            Thread thread = new Thread(_ =>
+            {
+                int top = 8;
+                DateTime dateTime = DateTime.Now;
+                DateTime timer = dateTime.AddMinutes(-1);
+
+                while (dateTime >= timer && running)
                 {
                     Console.SetCursorPosition(0, top);
-                    if (time == text.Length)
+                    if (letter == text.Length)
                     {
                         running = false;
                     }
                     Console.SetCursorPosition(0, top);
-                    var tick = (nowDateTime - timer).Ticks;
+                    long ticks = (dateTime - timer).Ticks;
                     Console.SetCursorPosition(0, top);
-                    Console.WriteLine(new DateTime(tick).ToString("ss"));
+                    Console.WriteLine(new DateTime(ticks).ToString("ss"));
                     Thread.Sleep(1000);
                     Console.SetCursorPosition(0, top);
                     timer = timer.AddSeconds(1);
                     Console.SetCursorPosition(0, top);
                 }
-                
                 Console.Clear();
-                Console.WriteLine("Время вышло.");
-                SpeedOfTyping(time);
+                Console.WriteLine("Ваше время вышло");
+                SpeedOfTyping();
                 EndOfTypingTest();
             });
-            t.Start();
+            thread.Start();
         }
         
-        static void SpeedOfTypingTest(bool running)
+        static void SpeedOfTyping()
         {
-            Console.Clear();
-            Console.WriteLine("Нажмите Enter чтобы начать");
-            key = Console.ReadKey();
-            Time(running);
-            
-            while (running == true)
-            {
-                int i = 0;
-                if (key.Key == ConsoleKey.Enter)
-                {
-                    Console.Clear();
-                    Console.SetCursorPosition(0, 4);
-                    Console.WriteLine(text);
-                    Console.SetCursorPosition(0, 4);
-                    while (i < text.Length)
-                    {
-                        char symbol = Console.ReadKey(true).KeyChar;
-                        if (symbol == text[i])
-                        {
-                            i++;
-                            CyanSymbols(i);
-                        }
-                    }
-                }
-                key = Console.ReadKey();
-                Console.WriteLine("Нажмите что-то");
-            }
-
+            user.CharsPerMinute = letter;
+            user.CharsPerSecond = letter / 60;
         }
         
         static void EndOfTypingTest()
         {
-            key = Console.ReadKey();
-            while (key.Key != ConsoleKey.Escape)
+            try
             {
-                switch (Console.ReadKey().Key)
+                keyInfo = Console.ReadKey();
+                while (keyInfo.Key != ConsoleKey.Escape)
                 {
-                    case ConsoleKey.Enter:
-                        Console.Clear();
-                        Console.WriteLine("Имя: " + user.Name);
-                        Console.WriteLine("Скорость в минуту: " + user.CharsPerMinute);
-                        Console.WriteLine("Скорость в секунду: " + user.CharsPerSecond);
-                        Console.WriteLine("                                          ");
-                        userBoard.ShowBoard(); 
-                        userBoard.AddUser(user.Name, user.CharsPerMinute, user.CharsPerSecond);
-                        Console.WriteLine("Чтобы вернуться обратно в меню, нажмите F2");
-                        Console.WriteLine("Чтобы закончить программу, нажмите Escape ");
-                        break;
-                    case ConsoleKey.F2:
-                        Main();
-                        break;
-                    case ConsoleKey.Escape:
-                        Environment.Exit(0);
-                        break;
+                    switch (keyInfo.Key)
+                    {
+                        case ConsoleKey.Enter:
+                            Console.Clear();
+                            Console.WriteLine("Имя: " + user.UserName);
+                            Console.WriteLine("Скорость в минуту: " + user.CharsPerMinute);
+                            Console.WriteLine("Скорость в секунду: " + user.CharsPerSecond);
+                            Console.WriteLine("                                          ");
+                            //userBoard.AddRecords();
+                            userBoard.ShowBoard();
+                            userBoard.AddUser(user.UserName, user.CharsPerMinute, user.CharsPerSecond);
+                            userBoard.Serialization();
+                            Console.WriteLine("Чтобы вернуться обратно в меню, вернитесь через Escape");
+                            Console.WriteLine("Чтобы закончить программу, нажмите F");
+                            break;
+                        case ConsoleKey.Escape:
+                            Main();
+                            break;
+                        case ConsoleKey.F:
+                            Environment.Exit(0);
+                            break;
+                    }
                 }
             }
-        }
-        static void SpeedOfTyping(int time)
-        {
-            int seconds = time / 60;
-            user.CharsPerMinute = time;
-            user.CharsPerSecond = seconds;
-        }
-        static void CyanSymbols(int length)
-        {
-            Console.SetCursorPosition(0, 2);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            for (int i = 0; i < length; i++)
+            catch (Exception e)
             {
-                Console.Write(text[i]);
+                Console.WriteLine(e);
+                throw;
             }
-            Console.SetCursorPosition(0, 2);
+        }
+        
+        static void CyanSymbols(int lenght)
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            for (letter = 0; letter < lenght; letter++)
+            {
+                Console.Write(text[letter]);
+            }
+            Console.SetCursorPosition(0, 0);
         }
     }
 }
