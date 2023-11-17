@@ -1,0 +1,17 @@
+C:\Users\efimb\RiderProjects\Скоропечатание\bin\Debug\net7.0\Скоропечатание.exe
+C:\Users\efimb\RiderProjects\Скоропечатание\bin\Debug\net7.0\Скоропечатание.deps.json
+C:\Users\efimb\RiderProjects\Скоропечатание\bin\Debug\net7.0\Скоропечатание.runtimeconfig.json
+C:\Users\efimb\RiderProjects\Скоропечатание\bin\Debug\net7.0\Скоропечатание.dll
+C:\Users\efimb\RiderProjects\Скоропечатание\bin\Debug\net7.0\Скоропечатание.pdb
+C:\Users\efimb\RiderProjects\Скоропечатание\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.csproj.AssemblyReference.cache
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.AssemblyInfoInputs.cache
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.AssemblyInfo.cs
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.csproj.CoreCompileInputs.cache
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.csproj.CopyComplete
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.dll
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\refint\Скоропечатание.dll
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.pdb
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\Скоропечатание.genruntimeconfig.cache
+C:\Users\efimb\RiderProjects\Скоропечатание\obj\Debug\net7.0\ref\Скоропечатание.dll
