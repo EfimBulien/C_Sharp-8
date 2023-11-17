@@ -27,7 +27,7 @@ namespace Скоропечатание
             }
         }
         
-        public void AddUser( string name, double minute, double second)
+        public void AddUser(string name, double minute, double second)
         {
             try
             {
